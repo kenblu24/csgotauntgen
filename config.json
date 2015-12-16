@@ -1,0 +1,10 @@
+{
+  "vars": {},
+  "css": [
+    "tooltip.less"
+  ],
+  "js": [
+    "tooltip.js"
+  ],
+  "customizerUrl": "http://getbootstrap.com/customize/?id=0d2d56aea2d475344df8"
+}
