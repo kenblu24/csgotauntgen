@@ -1,3 +1,5 @@
+//csgotaunts v1.2 by Kevin "Videblu" Zhu
+
 var tauntid = randomstring();
 var title = $("#title");
 var result = $("#result");
@@ -18,8 +20,8 @@ function randomstring(){// sets tauntid to a randomly generated 3 letter string.
 
 function evaluate (b) {
 	var txtin = b.split("\n"); //txtin is the input text split into lines as an array.
-	var proccessed = [];
-	var o = 0; //o is the current GOOD line. It must exist because I ignore bad/empty lines , meaning the numbering would be off.
+	var processed = [];
+	var o = 0; //o is the current GOOD line. It must exist because var i ignores bad/empty lines , meaning the numbering would be off.
 	var n = "";
 	removed = {empty: 0, illegal: 0, titleempty: false, titleillegal: false}
 
@@ -31,18 +33,25 @@ function evaluate (b) {
 	}
 	else {n = tauntid; removed.titleempty = true} //sanitize Title (remove spaces, ", and ; ) use randomly generated string if empty.
 
-
+	processed.push ("alias " + n + " " + n + "0 // To use this taunt, bind a key to \"" + n + "\" ");
 	for (var i = 0; i < txtin.length; i++) {//goes through txtin, adds logic, and pushes good lines to processed[] and logs if things were removed.
-		illegalchars = txtin[i].match(/("|\;)/g);
+		var q;
+
+		illegalchars = txtin[i].match(/(\;)/g);
 
 		if (illegalchars) {//remove illegal characters from current line.
-			removed.illegal += illegalchars.length ;
-			txtin[i] = txtin[i].replace(/(("|\;)+)+/g,"")
+			removed.illegal += illegalchars.length;
+			txtin[i] = txtin[i].replace(/((\;)+)+/g,"");
 		}
 
-		if (txtin[i].length && !txtin[i].match(/^ +$/)) {//if sanitized line is not empty, proccess and push.
-			var p = "alias \"" + n + o.toString() +"\" \"say " + txtin[i] + "; alias " + n + " " + n + (o + 1).toString(); //add logic
-			proccessed.push (p);
+		txtin[i] = txtin[i].replace(/((\")+)+/g,"'");
+
+		if (i != txtin.length - 1) {q = o + 1}
+		else {q = 0}
+
+		if (txtin[i].length && !txtin[i].match(/^ +$/)) {//if sanitized line is not empty (if more than 0 chars and not just space), proccess and push.
+			var p = "alias \"" + n + o.toString() +"\" \"say " + txtin[i] + "; alias " + n + " " + n + q.toString() + "\""; //add logic
+			processed.push (p);
 			o++;
 		}
 		else {removed.empty++} //log the removed lines to removed.newline
@@ -50,7 +59,7 @@ function evaluate (b) {
 		if (!o) {removed.empty =0} //if there are no good lines, set removed.empty to 0 so that no notification comes up.
 
 	}
-	return proccessed
+	return processed
 }
 
 function render (a) {
