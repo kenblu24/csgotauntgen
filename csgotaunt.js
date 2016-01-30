@@ -23,7 +23,7 @@ function evaluate (b) {
 	var processed = [];
 	var o = 0; //o is the current GOOD line. It must exist because var i ignores bad/empty lines , meaning the numbering would be off.
 	var n = "";
-	removed = {empty: 0, illegal: 0, titleempty: false, titleillegal: false}
+	removed = {empty: 0, illegal: 0, titleempty: false, titleillegal: false, none: false}
 
 	if (title.val().replace(/( |"|\;)+/g,"").length) {
 
@@ -33,7 +33,6 @@ function evaluate (b) {
 	}
 	else {n = tauntid; removed.titleempty = true} //sanitize Title (remove spaces, ", and ; ) use randomly generated string if empty.
 
-	processed.push ("alias " + n + " " + n + "0 // To use this taunt, bind a key to \"" + n + "\" ");
 	for (var i = 0; i < txtin.length; i++) {//goes through txtin, adds logic, and pushes good lines to processed[] and logs if things were removed.
 		var q;
 
@@ -56,8 +55,11 @@ function evaluate (b) {
 		}
 		else {removed.empty++} //log the removed lines to removed.newline
 
-		if (!o) {removed.empty =0} //if there are no good lines, set removed.empty to 0 so that no notification comes up.
+		if (!o) {removed.empty = 0; removed.none = true} //if there are no good lines, set removed.empty to 0 so that no notification comes up.
 
+	}
+	if (!removed.none) {
+		processed.unshift ("alias " + n + " " + n + "0 // To use this taunt, bind a key to \"" + n + "\" ");
 	}
 	return processed
 }
