@@ -5,38 +5,164 @@
 		<meta name="description" content="Turn song lyrics into a CS:GO executable config file.">
 		<meta name="keywords" content="CS:GO, Counter, Strike, Global, Offensive, exec, taunt, binds, bind, chatspam, script">
 		<meta name="author" content="Kevin 'Videblu' Zhu">
-		<link rel="stylesheet" type="text/css" href="styleA.css">
-		<link rel="stylesheet" type="text/css" href="css/bootstrap.css">
+		<link rel="stylesheet" type="text/css" href="css/normalize.css">
+		<link rel="stylesheet" type="text/css" href="styles.css">
 	</head>
-	<body>
-		<div class="head">
-			<input type="text" name= "Title"  id="title" placeholder="Title (randomly generated if empty)" maxlength="10">
-			<!-- <a href="#">CS:GO Taunt Generator</a> -->
-			<!-- <a href="#about" class="headbtn"> About </a> -->
-		</div>
-		<div class="container">
+	<body class="text-gray">
+		<div id="bg-1" class="bg"></div>
+		<div id="bg-2" class="bg"></div>
+		<div id="bg-3" class="bg"></div>
+		<div id="main" class="shadow">
+			<div id="nav" class="shadow text-light-blue">
+				<button id="btn-1" target="#browse">Sample Text</button>
+				<button id="btn-2" target="#options">Options</button>
+				<button id="btn-3" >Chat Preview</button>
+			</div>
+			<div class="container">
+				<div id="left" class="shadow">
+					<div class="container">
+						<div class="pane" style="order:2">
+							<div id="browse">
+								<a class="list-block-element" data-n="spaghetti">
+									<div>
+										<h3>Mom's Spaghetti</h2>
+										<span>by 4chan &amp; Videblu</span>
+									</div>
+								</a>
+								<a class="list-block-element" data-n="spaghetti">
+									<div>
+										<h3>Mom's Spaghetti</h2>
+										<span>by 4chan &amp; Videblu</span>
+									</div>
+								</a>
+							</div>
+						</div>
+						<div class="pane">
+							<div id="options">
+								<fieldset>
+									<div id="split" class="input-group dropdown-container" hover tabindex="-1">
+										<div class="dropdown text-input-inset-faded" active-n="1">
+											<div class="text-input text-light-blue">
+												<label class="text-faded input-inline-label">Split by:</label><span class="drop-value"> Newline </span>
+											</div>
+											<div class="dropdown-arrow"></div>
+										</div>
+										<div class="dark-shadow"></div>
+										<div class="dropdown-menu shadow">
+											<ul>
+												<li split="\n" data-n="1"> Newline </li>
+												<li split=". " data-n="2"> New Sentence </li>
+												<li            data-n="0"> Custom Regex </li>
+											</ul>
+										</div>
 
-			<textarea id="input"></textarea>
-			<div class="right" tabindex="0">
-				<code id="result"></code>
-				<div class="outputbuttons"></div>
-				<div class="notifications"></div>
+									</div>
+									<div id="split-regex" class="input-group dropdown-container" style="display: none" tabindex="-1" group="split">
+										<div class="text-input-inset-faded text-input text-gray">/<input type="text" name="re-match" size="18" class="text-light-blue re-match">/<input type="text" name="re-options" maxlength="3" size="3" value="g" class="re-options"></div>
+									</div>
+								</fieldset>
+								<div class="input-group checkbox-container text-light-blue">
+									<input id="rm-blank-lines" type="checkbox" checked="checked" name="rm-blank-lines">
+									<label for="rm-blank-lines">Remove Blank Lines</label>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div id="right">
+					<div id="inputs" class="shadow">
+						<div class="container">
+							<input id="title" type="name" name="name" placeholder="Title" class="text-light-blue text-input text-input-inset-light">
+							<input id="bind" type="text" name="bind" placeholder="Bind" class="text-light-blue text-input text-input-inset-light" size="7">
+						</div>
+						<div id="pain">
+							<div class="nano">
+								<textarea id="pasta" class="text-input nano-content"></textarea>
+							</div>
+							<div class="text-input text-input-inset"></div>
+						</div>
+					</div>
+					<div id="outputs">
+						<div class="left btn-container" ><button id="btn-uhhh" class="btn-float" target="#help" onclick="openModal(event)">What do I do with this?</button></div>
+						<div class="right btn-container"><button id="btn-clip" class="btn-float" data-clipboard-target="#result">Copy to Clipboard</button><button id="btn-dl" class="btn-float">Download as .cfg</button></div>
+						<div id="result-scrollmask" class="nano"><code id="result" class="text-gray scrollmask nano-content"></code></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div id="help" class="modal-centered-container" style="display: none">
+			<div class="modal" tabindex="-1">
+				<div class="title-bar">
+					<h3>How To Use</h3>
+					<hr><button class="btn-x" target="#help"></button>
+				</div>
+				<div class="modal-section">
+					<p>
+						Have you ever wanted to spam multiple paragraphs of copypasta in TF2? Are your CS buy binds fighting for space with your chat spam binds? What if I told you that you could fill up the chat with the bee movie script with <i>just one key?</i>
+					</p>
+					<img width="480px" src="img/demo1.gif">
+					<p>
+						Simply paste your favorite copypastas in the box above and place the .cfg file in your csgo /config folder, usually located at:
+
+					</p>
+					<ul style="list-style: none">
+						<li>Windows: <code> C:\Program Files (x86)\Steam\SteamApps\common\Counter-Strike Global Offensive\csgo\cfg </code></li>
+						<li>MacOS: <code> ~/Library/Application Support/Steam/SteamApps/common/Counter-Strike Global Offensive/csgo/cfg </code></li>
+					</ul>
+					<p>
+						Then, open up the console and type <code> exec <i>the-name-of-your-cfg-file</i></code> or add this line to your <code>autoexec.cfg</code> file. Spam away!
+					</p>
+
+					<footer>Copyright 2017 Videblu. Some art assets Copyright Valve L.L.C. used under the Fair Use doctrine. Counter-Strike and Team Fortress 2 are registered trademarks of Valve. Videblu is not associated with Valve.</footer>
+				</div>
 			</div>
 		</div>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 		<script src="js/bootstrap.js"></script>
-		<script type="text/javascript" src="csgotaunt.js"></script>
+		<script type="text/javascript" src="js/processor.js"></script>
+		<script type="text/javascript" src="js/csgotaunts.js"></script>
 		<script type="text/javascript">
-			(function() {
-				function async_load(script_url){
-					var protocol = ('https:' == document.location.protocol ? 'https://' : 'http://');
-					var s = document.createElement('script'); s.src = protocol + script_url;
-					var x = document.getElementsByTagName('script')[0]; x.parentNode.insertBefore(s, x);
+			$(".btn-x").on('click', function(e) {$(e.target.attributes['target'].nodeValue).hide();});
+			function openModal(e){
+				var targetDiv = $($(e.target).attr('target'))
+				targetDiv.show();
+				//targetDiv.children(".modal").focus().on('focusout', function(e) {if (!$(e.relatedTarget).closest('.modal').length) {targetDiv.hide();}});
+				targetDiv.on('click', function(e) {
+					if (!$(e.target).closest('.modal').length) {targetDiv.hide();}
+				});
+			}
+
+			$("[hover] .dropdown").on("click", function(e) {
+				parent = $(e.target).closest(".input-group");
+				if (parent.attr('open'))
+					parent.removeAttr('open');
+				else {
+					parent.attr('open', '');
+					$(parent).on('focusout', function() {
+						parent.removeAttr('open');
+					});
 				}
-				bm_website_code = 'F212E6948BF44FD1';
-				jQuery(document).ready(function(){async_load('asset.pagefair.com/measure.min.js')});
-				jQuery(document).ready(function(){async_load('asset.pagefair.net/ads.min.js')});
-			})();
+			});
+
+			$(".dropdown-menu li").on('click', function(e) {
+				parent = $(e.target).closest(".input-group");
+				parent.find('.drop-value').text($(e.target).text());
+				parent.find('[active-n]').attr('active-n', $(e.target).attr('data-n'));
+				parent.removeAttr('open');
+				parent.change();
+			});
+
+			$("#split").change(function() {
+				if ($("#split [active-n]").attr('active-n') == 0)
+					$("[group=split]").show();
+				else
+					$("[group=split]").hide();
+			});
+
+			function showPane() {
+
+			}
+
 		</script>
 	</body>
 </html>
