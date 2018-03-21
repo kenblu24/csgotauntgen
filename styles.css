@@ -271,8 +271,9 @@ footer, footer p, footer a {
 }
 
 .text-faded {
-	color: rgb(58, 75, 96);
-	text-shadow: 0 0 0.8px hsla(210, 31%, 20%, 0.62);
+	color: rgb(59, 76, 98);
+	color: hsl(214, 25%, 37%);
+	text-shadow: 0 0 0.8px hsla(214, 25%, 20%, 1);
 }
 
 .text-gray {
@@ -457,6 +458,7 @@ input[type="checkbox"]:checked:after {
 }
 
 #left {
+	position: relative;
 	width: 250px;
 	-ms-flex-preferred-size: 250px;
 		flex-basis: auto;
@@ -464,24 +466,28 @@ input[type="checkbox"]:checked:after {
 		flex-shrink: 0;
 	background-color: rgb(27, 36, 44);
 	background-color: hsla(212, 31%, 10%, 0.82);
+	overflow-x: hidden;
 	z-index: 99;
 }
 
 #left > .container {
-	position: relative;
+	display: flex;
+	flex-direction: row;
+	position: absolute;
+	width: auto;
 	height: 100%;
-	overflow-x: hidden;
 }
 
 #left .pane {
-	position: absolute;
+	flex-basis: 100%;
+	flex-shrink: 0;
 	width: 100%;  /* refers to width  of #left */
 	height: 100%; /* refers to height of #left .container */
 	box-sizing: border-box;
 }
 
 #left .pane > div {
-	position: absolute;
+/* 	position: absolute; */
 	top: 0;
 	right: 0;
 	bottom: 0;

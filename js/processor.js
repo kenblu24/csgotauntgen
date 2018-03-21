@@ -60,7 +60,7 @@ function evaluate (data) {
 	var temp = "alias " + title + " " + title + "0";
 	if (data.bind) {
 		processed.unshift(temp);
-		processed.unshift("bind " + title + " " + data.bind);
+		processed.unshift("bind " + data.bind + " " + title);
 	}
 	else {
 		processed.unshift (temp + " // To use this taunt, bind a key to \"" + title + "\" ");

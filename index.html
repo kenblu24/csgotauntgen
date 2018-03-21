@@ -14,9 +14,9 @@
 		<div id="bg-3" class="bg"></div>
 		<div id="main" class="shadow">
 			<div id="nav" class="shadow text-light-blue">
-				<button id="btn-1" target="#browse">Sample Text</button>
-				<button id="btn-2" target="#options">Options</button>
-				<button id="btn-3" >Chat Preview</button>
+				<button id="btn-1" target="#browse"  data-nav-id='0'>Sample Text</button>
+				<button id="btn-2" target="#options" data-nav-id='1'>Options</button>
+				<button id="btn-3" target="#preview" data-nav-id='2'>Chat Preview</button>
 			</div>
 			<div class="container">
 				<div id="left" class="shadow">
@@ -159,7 +159,7 @@
 					$("[group=split]").hide();
 			});
 
-			function showPane() {
+			function showPane(pane_id) {
 
 			}
 
